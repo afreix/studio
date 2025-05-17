@@ -2,10 +2,10 @@
 "use client";
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { GitPullRequest, ShieldAlert, ListChecks, Activity } from "lucide-react";
+import { GitPullRequest, ShieldAlert, ListChecks } from "lucide-react";
 import { mockPrCount, mockFailedBuildsCount, mockTasksByStatus, mockEvents } from "@/lib/mock-data";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { format } from 'date-fns';
+import { EventListItem } from './EventListItem'; // Import the new component
 
 const taskStatusChartData = Object.entries(mockTasksByStatus).map(([name, value]) => ({ name, count: value }));
 
@@ -88,16 +88,7 @@ export function DashboardPageContent() {
         <CardContent>
           <ul className="space-y-3">
             {mockEvents.slice(0, 5).map(event => (
-              <li key={event.id} className="flex items-start space-x-3 p-3 bg-card-foreground/5 rounded-md">
-                <Activity className="h-5 w-5 text-accent mt-1" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">
-                    <span className="font-semibold capitalize">{event.source}:</span> {event.type.replace(/_/g, ' ')}
-                  </p>
-                  <p className="text-xs text-muted-foreground">{format(event.ts, "MMM d, yyyy 'at' h:mm a")}</p>
-                  {/* <pre className="text-xs text-muted-foreground mt-1 bg-background p-1 rounded_md overflow-x-auto">{JSON.stringify(event.payload, null, 2)}</pre> */}
-                </div>
-              </li>
+              <EventListItem key={event.id} event={event} />
             ))}
           </ul>
         </CardContent>
