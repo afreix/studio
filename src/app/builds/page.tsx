@@ -1,13 +1,13 @@
 import { SidebarInset } from "@/components/ui/sidebar";
-import { DashboardPageContent } from "@/components/dashboard/dashboard-page";
+import { BuildsPageContent } from "@/components/builds/builds-page";
 import { PageHeader } from "@/components/layout/page-header";
 
-export default function DashboardPage() {
+export default function BuildsPage() {
   return (
     <SidebarInset>
-      <PageHeader title="Dashboard" />
+      <PageHeader title="Builds Status" />
       <main className="flex-1 p-4 md:p-6">
-        <DashboardPageContent />
+        <BuildsPageContent />
       </main>
     </SidebarInset>
   );
