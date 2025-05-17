@@ -1,3 +1,4 @@
+
 // src/ai/flows/semantic-search-events.ts
 'use server';
 /**
@@ -33,28 +34,30 @@ export async function semanticSearchEvents(input: SemanticSearchEventsInput): Pr
   return semanticSearchEventsFlow(input);
 }
 
-const performSemanticSearch = ai.defineTool({
-  name: 'performSemanticSearch',
-  description: 'Performs a semantic search for events based on the user query.',
-  inputSchema: z.object({
-    query: z.string().describe('The search query.'),
-  }),
-  outputSchema: z.array(
-    z.object({
-      id: z.string().describe('The ID of the event.'),
-      source: z.string().describe('The source of the event.'),
-      type: z.string().describe('The type of the event.'),
-      ts: z.string().describe('The timestamp of the event.'),
-      payload: z.record(z.any()).describe('The payload of the event.'),
-    })
-  ),
+const performSemanticSearch = ai.defineTool(
+  {
+    name: 'performSemanticSearch',
+    description: 'Performs a semantic search for events based on the user query.',
+    inputSchema: z.object({
+      query: z.string().describe('The search query.'),
+    }),
+    outputSchema: z.array(
+      z.object({
+        id: z.string().describe('The ID of the event.'),
+        source: z.string().describe('The source of the event.'),
+        type: z.string().describe('The type of the event.'),
+        ts: z.string().describe('The timestamp of the event.'),
+        payload: z.record(z.any()).describe('The payload of the event.'),
+      })
+    ),
+  },
   async (input) => {
     // TODO: Implement the actual semantic search logic here using vector similarity search.
     // This is a placeholder that returns an empty array.
     console.log("Calling semantic search with query: " + input.query);
     return [];
-  },
-});
+  }
+);
 
 const prompt = ai.definePrompt({
   name: 'semanticSearchEventsPrompt',
@@ -81,3 +84,4 @@ const semanticSearchEventsFlow = ai.defineFlow(
     return output!;
   }
 );
+
